@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public class SignInDto {
+public class SignInReqDto {
 	private String username;
 	private String password;
 }

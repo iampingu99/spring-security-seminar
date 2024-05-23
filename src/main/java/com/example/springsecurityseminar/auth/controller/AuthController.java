@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.springsecurityseminar.auth.dto.SignInDto;
+import com.example.springsecurityseminar.auth.dto.SignInReqDto;
 import com.example.springsecurityseminar.auth.dto.UserCreateDto;
 import com.example.springsecurityseminar.auth.service.AuthService;
 import com.example.springsecurityseminar.auth.service.UserService;
@@ -27,7 +27,7 @@ public class AuthController {
 	}
 
 	@PostMapping("/sign-in")
-	public ResponseEntity<?> signIn(@RequestBody SignInDto dto) {
+	public ResponseEntity<?> signIn(@RequestBody SignInReqDto dto) {
 		return ResponseEntity.ok(authService.signIn(dto));
 	}
 }

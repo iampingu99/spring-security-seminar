@@ -10,6 +10,7 @@ import com.example.springsecurityseminar.auth.service.UserService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import jakarta.servlet.http.HttpServletRequest;
 
 @Component
@@ -42,9 +43,9 @@ public class JwtUtil {
 				.setSubject(username)
 				.claim("userId", userId)
 				.setIssuer(issuer)
-				.setIssuedAt(new java.util.Date(System.currentTimeMillis()))
-				.setExpiration(new java.util.Date(System.currentTimeMillis() + expiration))
-				.signWith(io.jsonwebtoken.SignatureAlgorithm.HS512, secretKey.getBytes())
+				.setIssuedAt(new Date(System.currentTimeMillis()))
+				.setExpiration(new Date(System.currentTimeMillis() + expiration))
+				.signWith(SignatureAlgorithm.HS512, secretKey.getBytes())
 				.compact();
 	}
 
@@ -55,12 +56,6 @@ public class JwtUtil {
 	 */
 	public boolean validateToken(String token) {
 		try {
-			// Bearer 검증
-			if (!token.substring(0, "BEARER ".length()).equalsIgnoreCase("BEARER ")) {
-				return false;
-			} else {
-				token = token.split(" ")[1].trim();
-			}
 			Jws<Claims> claims = Jwts.parserBuilder().setSigningKey(secretKey.getBytes()).build().parseClaimsJws(token);
 			// 만료되었을 시 false
 			return !claims.getBody().getExpiration().before(new Date());
