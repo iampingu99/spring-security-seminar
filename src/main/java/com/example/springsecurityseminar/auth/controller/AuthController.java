@@ -1,4 +1,4 @@
-package com.example.springsecurityseminar.user.controller;
+package com.example.springsecurityseminar.auth.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.springsecurityseminar.user.dto.UserCreateDto;
-import com.example.springsecurityseminar.user.service.UserService;
+import com.example.springsecurityseminar.auth.dto.UserCreateDto;
+import com.example.springsecurityseminar.auth.service.UserService;
 
 import lombok.RequiredArgsConstructor;
 

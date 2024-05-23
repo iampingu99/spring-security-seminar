@@ -5,7 +5,7 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import com.example.springsecurityseminar.user.service.UserService;
+import com.example.springsecurityseminar.auth.service.UserService;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;

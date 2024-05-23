@@ -1,6 +1,6 @@
-package com.example.springsecurityseminar.user.dto;
+package com.example.springsecurityseminar.auth.dto;
 
-import com.example.springsecurityseminar.user.entity.User;
+import com.example.springsecurityseminar.auth.entity.User;
 
 import lombok.AllArgsConstructor;
 

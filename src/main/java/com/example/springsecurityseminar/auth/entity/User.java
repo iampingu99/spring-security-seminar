@@ -1,4 +1,4 @@
-package com.example.springsecurityseminar.user.entity;
+package com.example.springsecurityseminar.auth.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
