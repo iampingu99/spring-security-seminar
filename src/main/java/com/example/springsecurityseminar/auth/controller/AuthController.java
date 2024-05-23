@@ -6,7 +6,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.springsecurityseminar.auth.dto.SignInDto;
 import com.example.springsecurityseminar.auth.dto.UserCreateDto;
+import com.example.springsecurityseminar.auth.service.AuthService;
 import com.example.springsecurityseminar.auth.service.UserService;
 
 import lombok.RequiredArgsConstructor;
@@ -15,10 +17,17 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @RequestMapping("/auth")
 public class AuthController {
+	private final AuthService authService;
 	private final UserService userService;
 
 	@PostMapping("/sign-up")
-	public ResponseEntity<?> signup(@RequestBody UserCreateDto dto) {
+	public ResponseEntity<?> signUp(@RequestBody UserCreateDto dto) {
+		userService.create(dto.toEntity());
 		return ResponseEntity.created(null).build();
+	}
+
+	@PostMapping("/sign-in")
+	public ResponseEntity<?> signIn(@RequestBody SignInDto dto) {
+		return ResponseEntity.ok(authService.signIn(dto));
 	}
 }

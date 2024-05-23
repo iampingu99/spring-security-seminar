@@ -20,4 +20,8 @@ public class UserService {
 		// return userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException(username));
 		return userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("User not found"));
 	}
+
+	public User read(String username) {
+		return userRepository.findByUsername(username).orElseThrow(() -> new IllegalArgumentException("User not found"));
+	}
 }

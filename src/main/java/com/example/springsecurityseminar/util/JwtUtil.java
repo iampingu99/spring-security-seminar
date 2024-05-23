@@ -11,18 +11,25 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import jakarta.servlet.http.HttpServletRequest;
-import lombok.RequiredArgsConstructor;
 
 @Component
-@RequiredArgsConstructor
 public class JwtUtil {
-	private final UserService userService;
-	@Value("${jwt.secret}")
-	private String secretKey;
-	@Value("${jwt.expiration}")
-	private long expiration;
-	@Value("${jwt.issuer}")
-	private String issuer;
+	private final String secretKey;
+	private final long expiration;
+	private final String issuer;
+	private UserService userService;
+
+	public JwtUtil(
+			@Value("${jwt.secret}") String secretKey,
+			@Value("${jwt.expiration}") long expiration,
+			@Value("${jwt.issuer}") String issuer,
+			UserService userService
+	) {
+		this.secretKey = secretKey;
+		this.expiration = expiration;
+		this.issuer = issuer;
+		this.userService = userService;
+	}
 
 	/**
 	 * AccessToken 생성 메소드
