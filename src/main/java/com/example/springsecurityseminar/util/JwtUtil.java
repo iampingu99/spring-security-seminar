@@ -57,6 +57,11 @@ public class JwtUtil {
 	public boolean validateToken(String token) {
 		try {
 			Jws<Claims> claims = Jwts.parserBuilder().setSigningKey(secretKey.getBytes()).build().parseClaimsJws(token);
+			// 존재하는 회원인지 확인
+			if (userService.read(claims.getBody().get("userId", Long.class)) == null) {
+				return false;
+			}
+
 			// 만료되었을 시 false
 			return !claims.getBody().getExpiration().before(new Date());
 		} catch (Exception e) {

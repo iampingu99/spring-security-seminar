@@ -5,7 +5,7 @@ import com.example.springsecurityseminar.auth.entity.User;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class UserCreateDto {
+public class SignUpReqDto {
 	private String username;
 	private String name;
 	private String password;
