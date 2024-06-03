@@ -34,10 +34,19 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 		if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
 			jwt = authorizationHeader.substring(7);
 			userId = jwtUtil.getUserId(jwt);
+		} else {
+			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+			response.getWriter().write("Authorization header is missing or invalid");
+			return;
 		}
 
 		if (userId != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-			System.out.println("userId: " + userId);
+			if (userService.read(userId) == null) {
+				response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+				response.getWriter().write("User not found");
+				return;
+			}
+
 			if (jwtUtil.validateToken(jwt)) {
 				// Create authentication token without using UserDetails
 				UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
@@ -45,6 +54,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 				authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 				SecurityContextHolder.getContext().setAuthentication(authenticationToken);
 			} else {
+				response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+				response.getWriter().write("Invalid JWT token");
 				return;
 			}
 		}
